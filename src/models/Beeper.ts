@@ -17,3 +17,5 @@ class Beeper {
     }
 
 }
+
+export default Beeper;

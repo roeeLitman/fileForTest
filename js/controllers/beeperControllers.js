@@ -4,20 +4,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const beeperService_1 = require("../services/beeperService");
 const router = express_1.default.Router();
 // create beeper
 router.post("/", async (req, res) => {
     try {
+        const resolt = await beeperService_1.BeeperService.createNewBeeper(req.body);
+        if (!resolt) {
+            throw new Error();
+        }
         res.status(200).json({
             err: false,
-            message: 'blu blu',
+            message: `$is beeper save: ${resolt}`,
             data: undefined
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
+            message: `beeper not save`,
             data: null
         });
     }

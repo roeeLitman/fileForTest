@@ -1,4 +1,5 @@
 import express, { Router, Request, Response } from 'express'
+import { BeeperService } from '../services/beeperService';
 
 const router: Router = express.Router()
 
@@ -6,9 +7,13 @@ const router: Router = express.Router()
 // create beeper
 router.post("/", async (req: Request, res: Response): Promise<void> => {
     try{
+        const resolt = await BeeperService.createNewBeeper(req.body)
+        if(!resolt) {
+            throw new Error ();     
+        }
         res.status(200).json({
             err: false,
-            message: 'blu blu',
+            message: `$is beeper save: ${resolt}`,
             data: undefined
         })
 
@@ -16,7 +21,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
 
         res.status(400).json({
             err: true,
-            message: 'blu blu',
+            message: `beeper not save`,
             data: null
 
         })

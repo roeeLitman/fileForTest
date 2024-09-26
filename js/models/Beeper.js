@@ -9,3 +9,4 @@ class Beeper {
         this.status = BeeperStatus_1.BeeperStatus.manufactured;
     }
 }
+exports.default = Beeper;
