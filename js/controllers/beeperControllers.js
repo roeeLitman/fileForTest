@@ -51,6 +51,8 @@ router.get("/", async (req, res) => {
 // get beeper by id
 router.get("/:id", async (req, res) => {
     try {
+        console.log(req.params.id);
+        // const resolt:Beeper | undefined = BeeperService.getBeeperById(req.params.id)
         res.status(200).json({
             err: false,
             message: "blu blu",

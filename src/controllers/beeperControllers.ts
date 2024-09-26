@@ -1,5 +1,6 @@
 import express, { Router, Request, Response } from "express";
 import { BeeperService } from "../services/beeperService";
+import Beeper from "../models/Beeper";
 
 const router: Router = express.Router();
 
@@ -27,7 +28,7 @@ router.post("/", async (req: Request, res: Response): Promise<void> => {
 //get all beepers
 router.get("/", async (req: Request, res: Response): Promise<void> => {
   try {
-    const resolt = await BeeperService.getAllBeepers();
+    const resolt:Beeper[] | undefined = await BeeperService.getAllBeepers();
     if (!resolt) {
       throw new Error();
     }
@@ -48,6 +49,9 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 // get beeper by id
 router.get("/:id", async (req: Request, res: Response): Promise<void> => {
   try {
+    console.log(req.params.id);
+    
+    // const resolt:Beeper | undefined = BeeperService.getBeeperById(req.params.id)
     res.status(200).json({
       err: false,
       message: "blu blu",
