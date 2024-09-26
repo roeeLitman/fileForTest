@@ -3,6 +3,7 @@ import newBeeperDTO from "../DTO/newBeeperDTO";
 import UpdateStatusDTO from "../DTO/UpdateStatusDTO";
 import Beeper from "../models/Beeper";
 import { BeeperStatus } from "../utils/enums/BeeperStatus";
+import { turnOnBeeper } from "../utils/TurnOnBeeper";
 import { UpdateStatusBeeper } from "../utils/updateStatusBeeper";
 
 export class BeeperService {
@@ -81,24 +82,22 @@ export class BeeperService {
     try {
         
         // מביא את המערך
-        const beepers: Beeper[] | undefined = await getBeepersFromData();
+        let beepers: Beeper[] | undefined = await getBeepersFromData();
         if(!beepers) throw new Error("");
         // מוצא את הביפר 
         const beeper: Beeper | undefined = beepers.find((beep) => { return beep.id === id;});
         if(!beeper) throw new Error("");
         //   מחזיר חזרה את הדאטה ללא הפיבר המעודכן
-
+        await saveFileData(beepers.filter((beep)=>{return beep.id !== beeper.id}));
         // משנה את הסטטוס רק אם זה הסטטוס הבא בתור
-        const updetaBeeper:Beeper = UpdateStatusBeeper(beeper, updataStatus.status)
+        const updetaBeeper:Beeper = UpdateStatusBeeper(beeper, updataStatus)   
         // פונקציה שתקבל את הביפר תבדוק האם הסטטוס מוקם ובמקרה שכן סופר עשר שניות ומחזיר את הביפר בסטטוס מעודכן
-
+        turnOnBeeper(updetaBeeper)
         // מכניס את הביפר חזרה למערך
-
-
-
         return true;
 
       } catch (err) {
+        
         console.log(err);
         return false
       }
