@@ -13,6 +13,6 @@ const turnOnBeeper = (beeper) => {
         const beepers = await (0, fileDL_1.getBeepersFromData)();
         beepers?.push(beeper);
         (0, fileDL_1.saveFileData)(beepers);
-    }, 1000);
+    }, 10000);
 };
 exports.turnOnBeeper = turnOnBeeper;

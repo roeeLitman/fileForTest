@@ -13,5 +13,5 @@ export const turnOnBeeper = (beeper: Beeper) => {
         const beepers:Beeper[] | undefined  = await  getBeepersFromData()
         beepers?.push(beeper)
          saveFileData(beepers as Beeper[])
-    },1000)
+    },10000)
 }
