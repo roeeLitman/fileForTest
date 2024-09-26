@@ -1,3 +1,5 @@
+import { BeeperStatus } from "../utils/enums/BeeperStatus";
+
 class Beeper {
     public id: number;
     public status: string;
@@ -10,9 +12,8 @@ class Beeper {
         public name:string 
     ) {
         this.created_at = new Date();
-
-        // בהמשך להשתמש בפונקציה שתחזיר לי מספרים יןתר יפים
         this.id = + Math.random().toString().split(".")[1]
+        this.status =  BeeperStatus.manufactured
     }
 
 }
