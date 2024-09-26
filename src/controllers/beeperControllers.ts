@@ -90,15 +90,19 @@ router.put(
 // delete beeper
 router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
   try {
+    const resolt = await BeeperService.deleteBeeper(parseInt(req.params.id))
+    if(!resolt){
+        throw new Error("");    
+    }
     res.status(200).json({
       err: false,
-      message: "blu blu",
+      message: `is delete`,
       data: undefined,
     });
   } catch (err) {
     res.status(400).json({
       err: true,
-      message: "blu blu",
+      message: "not delete",
       data: null,
     });
   }

@@ -43,5 +43,17 @@ class BeeperService {
             console.log(err);
         }
     }
+    static async deleteBeeper(id) {
+        try {
+            const beepers = (await (0, fileDL_1.getBeepersFromData)());
+            const newArrDelete = beepers.filter((beep) => { return beep.id !== id; });
+            await (0, fileDL_1.saveFileData)(newArrDelete);
+            return true;
+        }
+        catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
 }
 exports.BeeperService = BeeperService;

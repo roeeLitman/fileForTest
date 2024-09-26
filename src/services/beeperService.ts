@@ -44,4 +44,16 @@ export class BeeperService {
           
       }
   }
+
+  public static async deleteBeeper(id:number): Promise<boolean> {
+    try {
+        const beepers: Beeper[] = (await getBeepersFromData()) as Beeper[];
+        const newArrDelete:Beeper[] = beepers.filter((beep) => {return beep.id !== id})
+        await saveFileData(newArrDelete)
+        return true
+      } catch (err) {
+          console.log(err);
+          return false
+      }
+  }
 }

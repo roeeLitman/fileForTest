@@ -89,16 +89,20 @@ router.put("/:id/status", async (req, res) => {
 // delete beeper
 router.delete("/:id", async (req, res) => {
     try {
+        const resolt = await beeperService_1.BeeperService.deleteBeeper(parseInt(req.params.id));
+        if (!resolt) {
+            throw new Error("");
+        }
         res.status(200).json({
             err: false,
-            message: "blu blu",
+            message: `is delete`,
             data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: "blu blu",
+            message: "not delete",
             data: null,
         });
     }
