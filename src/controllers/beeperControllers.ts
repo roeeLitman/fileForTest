@@ -1,13 +1,14 @@
 import express, { Router, Request, Response } from "express";
 import { BeeperService } from "../services/beeperService";
 import Beeper from "../models/Beeper";
+import UpdateStatusDTO from "../DTO/UpdateStatusDTO";
 
 const router: Router = express.Router();
 
 // create beeper
 router.post("/", async (req: Request, res: Response): Promise<void> => {
   try {
-    const resolt = await BeeperService.createNewBeeper(req.body);
+    const resolt:boolean = await BeeperService.createNewBeeper(req.body);
     if (!resolt) {
       throw new Error();
     }
@@ -72,7 +73,7 @@ router.put(
   "/:id/status",
   async (req: Request, res: Response): Promise<void> => {
     try {
-     
+     const resolt: boolean = await BeeperService.UpdateStatus(parseInt(req.params.id), req.body as UpdateStatusDTO)
       res.status(200).json({
         err: false,
         message: "blu blu",

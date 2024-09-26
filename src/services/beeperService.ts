@@ -1,6 +1,9 @@
 import { getBeepersFromData, saveFileData } from "../config/fileDL";
 import newBeeperDTO from "../DTO/newBeeperDTO";
+import UpdateStatusDTO from "../DTO/UpdateStatusDTO";
 import Beeper from "../models/Beeper";
+import { BeeperStatus } from "../utils/enums/BeeperStatus";
+import { UpdateStatusBeeper } from "../utils/updateStatusBeeper";
 
 export class BeeperService {
   // יצירת ביפר חדש
@@ -72,5 +75,33 @@ export class BeeperService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  public static async UpdateStatus(id: number, updataStatus: UpdateStatusDTO): Promise<boolean> {
+    try {
+        
+        // מביא את המערך
+        const beepers: Beeper[] | undefined = await getBeepersFromData();
+        if(!beepers) throw new Error("");
+        // מוצא את הביפר 
+        const beeper: Beeper | undefined = beepers.find((beep) => { return beep.id === id;});
+        if(!beeper) throw new Error("");
+        //   מחזיר חזרה את הדאטה ללא הפיבר המעודכן
+
+        // משנה את הסטטוס רק אם זה הסטטוס הבא בתור
+        const updetaBeeper:Beeper = UpdateStatusBeeper(beeper, updataStatus.status)
+        // פונקציה שתקבל את הביפר תבדוק האם הסטטוס מוקם ובמקרה שכן סופר עשר שניות ומחזיר את הביפר בסטטוס מעודכן
+
+        // מכניס את הביפר חזרה למערך
+
+
+
+        return true;
+
+      } catch (err) {
+        console.log(err);
+        return false
+      }
+
   }
 }

@@ -72,6 +72,7 @@ router.get("/:id", async (req, res) => {
 // update status
 router.put("/:id/status", async (req, res) => {
     try {
+        const resolt = await beeperService_1.BeeperService.UpdateStatus(parseInt(req.params.id), req.body);
         res.status(200).json({
             err: false,
             message: "blu blu",

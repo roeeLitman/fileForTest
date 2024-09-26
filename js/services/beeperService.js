@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BeeperService = void 0;
 const fileDL_1 = require("../config/fileDL");
 const Beeper_1 = __importDefault(require("../models/Beeper"));
+const updateStatusBeeper_1 = require("../utils/updateStatusBeeper");
 class BeeperService {
     // יצירת ביפר חדש
     static async createNewBeeper(newBeeper) {
@@ -71,6 +72,28 @@ class BeeperService {
         }
         catch (err) {
             console.log(err);
+        }
+    }
+    static async UpdateStatus(id, updataStatus) {
+        try {
+            // מביא את המערך
+            const beepers = await (0, fileDL_1.getBeepersFromData)();
+            if (!beepers)
+                throw new Error("");
+            // מוצא את הביפר 
+            const beeper = beepers.find((beep) => { return beep.id === id; });
+            if (!beeper)
+                throw new Error("");
+            //   מחזיר חזרה את הדאטה ללא הפיבר המעודכן
+            // משנה את הסטטוס רק אם זה הסטטוס הבא בתור
+            const updetaBeeper = (0, updateStatusBeeper_1.UpdateStatusBeeper)(beeper, updataStatus.status);
+            // פונקציה שתקבל את הביפר תבדוק האם הסטטוס מוקם ובמקרה שכן סופר עשר שניות ומחזיר את הביפר בסטטוס מעודכן
+            // מכניס את הביפר חזרה למערך
+            return true;
+        }
+        catch (err) {
+            console.log(err);
+            return false;
         }
     }
 }
