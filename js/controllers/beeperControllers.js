@@ -16,31 +16,35 @@ router.post("/", async (req, res) => {
         res.status(200).json({
             err: false,
             message: `$is beeper save: ${resolt}`,
-            data: undefined
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
             message: `beeper not save`,
-            data: null
+            data: null,
         });
     }
 });
 //get all beepers
 router.get("/", async (req, res) => {
     try {
+        const resolt = await beeperService_1.BeeperService.getAllBeepers();
+        if (!resolt) {
+            throw new Error();
+        }
         res.status(200).json({
             err: false,
-            message: 'blu blu',
-            data: undefined
+            message: resolt,
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
-            data: null
+            message: "notf found",
+            data: null,
         });
     }
 });
@@ -49,15 +53,15 @@ router.get("/:id", async (req, res) => {
     try {
         res.status(200).json({
             err: false,
-            message: 'blu blu',
-            data: undefined
+            message: "blu blu",
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
-            data: null
+            message: "blu blu",
+            data: null,
         });
     }
 });
@@ -66,15 +70,15 @@ router.put("/:id/status", async (req, res) => {
     try {
         res.status(200).json({
             err: false,
-            message: 'blu blu',
-            data: undefined
+            message: "blu blu",
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
-            data: null
+            message: "blu blu",
+            data: null,
         });
     }
 });
@@ -83,15 +87,15 @@ router.delete("/:id", async (req, res) => {
     try {
         res.status(200).json({
             err: false,
-            message: 'blu blu',
-            data: undefined
+            message: "blu blu",
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
-            data: null
+            message: "blu blu",
+            data: null,
         });
     }
 });
@@ -100,15 +104,15 @@ router.post("/status/:status", async (req, res) => {
     try {
         res.status(200).json({
             err: false,
-            message: 'blu blu',
-            data: undefined
+            message: "blu blu",
+            data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: 'blu blu',
-            data: null
+            message: "blu blu",
+            data: null,
         });
     }
 });

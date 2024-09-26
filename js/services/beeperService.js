@@ -9,13 +9,28 @@ const Beeper_1 = __importDefault(require("../models/Beeper"));
 class BeeperService {
     // יצירת ביפר חדש
     static async createNewBeeper(newBeeper) {
-        const beeper = new Beeper_1.default(newBeeper.name);
-        let beepers = await (0, fileDL_1.getBeepersFromData)();
-        if (!beepers) {
-            beepers = [];
+        try {
+            const beeper = new Beeper_1.default(newBeeper.name);
+            let beepers = await (0, fileDL_1.getBeepersFromData)();
+            if (!beepers) {
+                beepers = [];
+            }
+            beepers.push(beeper);
+            return await (0, fileDL_1.saveFileData)(beepers);
         }
-        beepers.push(beeper);
-        return await (0, fileDL_1.saveFileData)(beepers);
+        catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+    static async getAllBeepers() {
+        try {
+            const beepers = await (0, fileDL_1.getBeepersFromData)();
+            return beepers;
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
 }
 exports.BeeperService = BeeperService;
