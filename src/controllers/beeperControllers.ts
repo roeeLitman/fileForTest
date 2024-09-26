@@ -109,19 +109,24 @@ router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
 });
 
 // get by status
-router.post(
+router.get(
   "/status/:status",
   async (req: Request, res: Response): Promise<void> => {
     try {
+
+        const resolt = await BeeperService.getBeeperByStatus(req.params.status)
+        if (!resolt) {
+            throw new Error("");      
+        }
       res.status(200).json({
         err: false,
-        message: "blu blu",
+        message: resolt,
         data: undefined,
       });
     } catch (err) {
       res.status(400).json({
         err: true,
-        message: "blu blu",
+        message: "not found",
         data: null,
       });
     }

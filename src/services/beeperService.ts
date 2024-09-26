@@ -25,35 +25,52 @@ export class BeeperService {
   public static async getAllBeepers(): Promise<Beeper[] | undefined> {
     try {
       const beepers: Beeper[] | undefined = await getBeepersFromData();
-      return beepers
-
+      return beepers;
     } catch (err) {
-        console.log(err);
-        
+      console.log(err);
     }
   }
-  public static async getBeeperById(id:number): Promise<Beeper | undefined> {
+  public static async getBeeperById(id: number): Promise<Beeper | undefined> {
     try {
-        const beepers: Beeper[] | undefined = await getBeepersFromData();
-        const beeper: Beeper | undefined =  beepers?.find((beep)=>{return beep.id === id})
-        console.log(beeper);
-        
-        return beeper
-      } catch (err) {
-          console.log(err);
-          
-      }
+      const beepers: Beeper[] | undefined = await getBeepersFromData();
+      const beeper: Beeper | undefined = beepers?.find((beep) => {
+        return beep.id === id;
+      });
+      console.log(beeper);
+
+      return beeper;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  public static async deleteBeeper(id:number): Promise<boolean> {
+  public static async deleteBeeper(id: number): Promise<boolean> {
     try {
-        const beepers: Beeper[] = (await getBeepersFromData()) as Beeper[];
-        const newArrDelete:Beeper[] = beepers.filter((beep) => {return beep.id !== id})
-        await saveFileData(newArrDelete)
-        return true
-      } catch (err) {
-          console.log(err);
-          return false
+      const beepers: Beeper[] = (await getBeepersFromData()) as Beeper[];
+      const newArrDelete: Beeper[] = beepers.filter((beep) => {
+        return beep.id !== id;
+      });
+      await saveFileData(newArrDelete);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
+  public static async getBeeperByStatus(
+    status: string
+  ): Promise<Beeper[] | undefined> {
+    try {
+      const beepers: Beeper[] | undefined = await getBeepersFromData();
+      if (!beepers) {
+        throw new Error("");
       }
+      return beepers.filter((beep) => {
+        return beep.status === status;
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

@@ -108,18 +108,22 @@ router.delete("/:id", async (req, res) => {
     }
 });
 // get by status
-router.post("/status/:status", async (req, res) => {
+router.get("/status/:status", async (req, res) => {
     try {
+        const resolt = await beeperService_1.BeeperService.getBeeperByStatus(req.params.status);
+        if (!resolt) {
+            throw new Error("");
+        }
         res.status(200).json({
             err: false,
-            message: "blu blu",
+            message: resolt,
             data: undefined,
         });
     }
     catch (err) {
         res.status(400).json({
             err: true,
-            message: "blu blu",
+            message: "not found",
             data: null,
         });
     }

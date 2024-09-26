@@ -35,7 +35,9 @@ class BeeperService {
     static async getBeeperById(id) {
         try {
             const beepers = await (0, fileDL_1.getBeepersFromData)();
-            const beeper = beepers?.find((beep) => { return beep.id === id; });
+            const beeper = beepers?.find((beep) => {
+                return beep.id === id;
+            });
             console.log(beeper);
             return beeper;
         }
@@ -46,13 +48,29 @@ class BeeperService {
     static async deleteBeeper(id) {
         try {
             const beepers = (await (0, fileDL_1.getBeepersFromData)());
-            const newArrDelete = beepers.filter((beep) => { return beep.id !== id; });
+            const newArrDelete = beepers.filter((beep) => {
+                return beep.id !== id;
+            });
             await (0, fileDL_1.saveFileData)(newArrDelete);
             return true;
         }
         catch (err) {
             console.log(err);
             return false;
+        }
+    }
+    static async getBeeperByStatus(status) {
+        try {
+            const beepers = await (0, fileDL_1.getBeepersFromData)();
+            if (!beepers) {
+                throw new Error("");
+            }
+            return beepers.filter((beep) => {
+                return beep.status === status;
+            });
+        }
+        catch (err) {
+            console.log(err);
         }
     }
 }
