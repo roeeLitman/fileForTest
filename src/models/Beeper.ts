@@ -6,7 +6,7 @@ class Beeper {
     public created_at: Date;
     public detonated_at?: Date;
     public latitude?:number;
-    public longitude?: string;
+    public longitude?: number;
 
     constructor( 
         public name:string 

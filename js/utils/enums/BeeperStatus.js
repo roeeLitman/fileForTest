@@ -7,4 +7,5 @@ var BeeperStatus;
     BeeperStatus["assembled"] = "assembled";
     BeeperStatus["shipped"] = "shipped";
     BeeperStatus["deployed"] = "deployed";
+    BeeperStatus["detonated"] = "detonated";
 })(BeeperStatus || (exports.BeeperStatus = BeeperStatus = {}));
