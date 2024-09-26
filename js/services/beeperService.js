@@ -32,5 +32,16 @@ class BeeperService {
             console.log(err);
         }
     }
+    static async getBeeperById(id) {
+        try {
+            const beepers = await (0, fileDL_1.getBeepersFromData)();
+            const beeper = beepers?.find((beep) => { return beep.id === id; });
+            console.log(beeper);
+            return beeper;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 exports.BeeperService = BeeperService;

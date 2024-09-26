@@ -32,4 +32,16 @@ export class BeeperService {
         
     }
   }
+  public static async getBeeperById(id:number): Promise<Beeper | undefined> {
+    try {
+        const beepers: Beeper[] | undefined = await getBeepersFromData();
+        const beeper: Beeper | undefined =  beepers?.find((beep)=>{return beep.id === id})
+        console.log(beeper);
+        
+        return beeper
+      } catch (err) {
+          console.log(err);
+          
+      }
+  }
 }
